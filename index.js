@@ -36,7 +36,7 @@ async function run(){
             res.send(service);
         });
 
-
+        // add new service using react from
         app.post('/addservice', async(req,res) => {
             const newService = req.body;
             const result = await serviceCollection.insertOne(newService);
@@ -44,6 +44,14 @@ async function run(){
 
         })
         
+
+        // delete service
+        app.delete(`/service/:id`, async(req,res)=>{
+            const id = req.params.id;
+            const query = {_id:ObjectId(id)};
+            const result = await serviceCollection.deleteOne(query);
+            res.send(result);
+        })
        
     }finally{
 
